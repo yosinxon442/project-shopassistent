@@ -1,0 +1,152 @@
+/* Container */
+.customers-container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    padding-bottom: 64px;
+  }
+  
+  /* Header */
+  .customers-header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Back Button */
+  .back-button {
+    display: flex;
+    align-items: center;
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .back-button:hover {
+    color: #1a202c;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+  /* Header Title */
+  .header-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a202c;
+  }
+  
+  /* Add Button */
+  .add-button {
+    display: flex;
+    align-items: center;
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .add-button:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Customer List */
+  .customers-list {
+    max-width: 1200px;
+    margin: 24px auto;
+    margin-left: 263px;
+    padding: 0 24px;
+  }
+  
+  /* Customers Card */
+  .customers-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  /* Customer Items */
+  .customers-items {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Single Customer */
+  .customer-item {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .customer-item:hover {
+    background-color: #f3f4f6;
+  }
+  
+  /* Customer Info */
+  .customer-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .customer-name h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+    display: flex;
+    align-items: center;
+  }
+  
+  .customer-phone {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  /* Star Icon */
+  .star-icon {
+    width: 20px;
+    height: 20px;
+    color: #facc15;
+    margin-left: 6px;
+  }
+  
+  /* Customer Balance */
+  .customer-balance {
+    text-align: right;
+  }
+  
+  .balance-label {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  .balance-amount {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .balance-amount.negative {
+    color: #dc2626;
+  }
+  
+  .balance-amount.positive {
+    color: #16a34a;
+  }
+  

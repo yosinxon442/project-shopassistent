@@ -1,0 +1,187 @@
+/* Calendar container */
+.calendar-container {
+    min-height: 100vh;
+    background-color: #f9fafb;
+  }
+  
+  /* Header */
+  .calendar-header {
+    background-color: #ffffff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .back-button:hover {
+    color: #111827;
+  }
+  
+  .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+  }
+  
+  .calendar-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1f2937;
+  }
+  
+  /* Main Content */
+  .calendar-main {
+    max-width: 700px;
+    margin: 32px auto;
+    padding: 0 24px;
+  }
+  
+  /* Calendar Card */
+  .calendar-card {
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  
+  /* Calendar Header */
+  .calendar-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .month-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .nav-btn {
+    background-color: #f3f4f6;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .nav-btn:hover {
+    background-color: #e5e7eb;
+  }
+  
+  /* Week Days */
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-top: 12px;
+    text-align: center;
+  }
+  
+  .weekday {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+  }
+  
+  /* Days Grid */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-top: 12px;
+  }
+  
+  .day-box {
+    background-color: white;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    height: 80px;
+    position: relative;
+  }
+  
+  .highlight {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+  }
+  
+  .day-number {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+  
+  .highlight-text {
+    color: #2563eb;
+    font-weight: bold;
+  }
+  
+  /* Payment Info */
+  .payment-info {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+  }
+  
+  .payment-label {
+    font-size: 10px;
+    color: #1e40af;
+  }
+  
+  .payment-amount {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1e3a8a;
+  }
+  
+  /* Upcoming Payments */
+  .upcoming-payments {
+    margin-top: 20px;
+  }
+  
+  .upcoming-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+  
+  .payment-list {
+    margin-top: 10px;
+  }
+  
+  .payment-box {
+    background-color: #f9fafb;
+    padding: 12px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .payment-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+  
+  .payment-due {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  
