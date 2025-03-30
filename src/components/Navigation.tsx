@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Users, FolderOpen, Settings } from "lucide-react";
 import "../styles/Navigation.css";
