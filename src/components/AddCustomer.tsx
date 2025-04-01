@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus } from "lucide-react";
+import useDebtor from "../hooks/useDebtor";
 import "../styles/AddCustomer.css";
 
 const AddCustomer = () => {
   const navigate = useNavigate();
+  const { addDebtor } = useDebtor();
   const [formData, setFormData] = useState({
     name: "",
     phone1: "",
     phone2: "",
     address: "",
+    debtAmount: "",
     images: [] as File[],
   });
 
@@ -22,8 +25,15 @@ const AddCustomer = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await addDebtor({
+      full_name: formData.name,
+      phone_numbers: [formData.phone1, formData.phone2].filter(Boolean),
+      address: formData.address,
+      images: formData.images,
+      debt_sum: formData.debtAmount,
+    });
     navigate("/customers");
   };
 
@@ -42,83 +52,52 @@ const AddCustomer = () => {
       <main className="form-container">
         <div className="form-card">
           <form onSubmit={handleSubmit} className="customer-form">
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, name: e.target.value }))
-                }
-                required
-              />
-            </div>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, name: e.target.value }))
+              }
+              required
+            />
 
-            <div className="phone-fields">
-              <div>
-                <label htmlFor="phone1">Phone Number 1</label>
-                <input
-                  type="tel"
-                  id="phone1"
-                  value={formData.phone1}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, phone1: e.target.value }))
-                  }
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="phone2">Phone Number 2</label>
-                <input
-                  type="tel"
-                  id="phone2"
-                  value={formData.phone2}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, phone2: e.target.value }))
-                  }
-                />
-              </div>
-            </div>
+            <label htmlFor="phone1">Phone Number 1</label>
+            <input
+              type="tel"
+              id="phone1"
+              value={formData.phone1}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, phone1: e.target.value }))
+              }
+              required
+            />
 
-            <div>
-              <label htmlFor="address">Address</label>
-              <textarea
-                id="address"
-                value={formData.address}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, address: e.target.value }))
-                }
-                rows={3}
-                required
-              />
-            </div>
+            <label htmlFor="address">Address</label>
+            <textarea
+              id="address"
+              value={formData.address}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, address: e.target.value }))
+              }
+              required
+            />
 
-            <div className="image-upload">
-              <label>Upload Images</label>
-              <div className="image-grid">
-                {[1, 2].map((num) => (
-                  <div key={num} className="image-upload-box">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="image-input"
-                    />
-                    <div className="upload-placeholder">
-                      <Plus className="upload-icon" />
-                      <p>Upload image {num}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <label htmlFor="debtAmount">Debt Amount (so'm)</label>
+            <input
+              type="number"
+              id="debtAmount"
+              value={formData.debtAmount}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, debtAmount: e.target.value }))
+              }
+              required
+            />
 
-            <div className="submit-container">
-              <button type="submit" className="submit-button">
-                Add Customer
-              </button>
-            </div>
+            <button type="submit" className="submit-button">
+              Add Customer
+            </button>
           </form>
         </div>
       </main>

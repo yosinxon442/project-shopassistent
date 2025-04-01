@@ -1,24 +1,23 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { User, Lock } from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
 import "../styles/Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const { loginMutation } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/profile");
+    loginMutation.mutate({ login: username, hashed_password: password });
   };
 
   return (
     <div className="login-container">
       <div className="login-card">
-        <div>
-          <h2 className="login-title">Dasturga kirish</h2>
-        </div>
+        <h2 className="login-title">Dasturga kirish</h2>
+        {loginMutation.isError && <p className="error-message">Login yoki parol noto‘g‘ri!</p>}
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="input-group">
             <div className="input-wrapper">
@@ -44,21 +43,9 @@ const Login = () => {
               />
             </div>
           </div>
-
-          <div className="login-links">
-            <Link to="/register" className="login-link">
-              Register
-            </Link>
-            <a href="#" className="login-link">
-              Forgot password?
-            </a>
-          </div>
-
-          <div>
-            <button type="submit" className="login-button">
-              Sign in
-            </button>
-          </div>
+          <button type="submit" className="login-button" disabled={loginMutation.isLoading}>
+            {loginMutation.isLoading ? "Kirish..." : "Sign in"}
+          </button>
         </form>
       </div>
     </div>

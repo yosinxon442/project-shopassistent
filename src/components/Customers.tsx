@@ -1,43 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { Plus, ArrowLeft, Star } from "lucide-react";
+import useDebtor from "../hooks/useDebtor";
 import "../styles/Customers.css";
-
-interface Customer {
-  name: string;
-  phone: string;
-  amount: number;
-  starred: boolean;
-}
 
 const Customers = () => {
   const navigate = useNavigate();
+  const { debtors, loading, error } = useDebtor();
 
-  const customers: Customer[] = [
-    {
-      name: "Rahmatulloh Madraximov",
-      phone: "+998 91 123 45 67",
-      amount: -800000,
-      starred: true,
-    },
-    {
-      name: "Lutfulloh To'rayev",
-      phone: "+998 91 123 45 67",
-      amount: -56861000,
-      starred: true,
-    },
-    {
-      name: "Avazbek Soljonov",
-      phone: "+998 91 123 45 67",
-      amount: -14786000,
-      starred: false,
-    },
-    {
-      name: "Madina Mavlonova",
-      phone: "+998 91 123 45 67",
-      amount: -14786000,
-      starred: false,
-    },
-  ];
+  if (loading) {
+    return <p>Yuklanmoqda...</p>;
+  }
+
+  if (error) {
+    return <p className="error-message">{error}</p>;
+  }
 
   return (
     <div className="customers-container">
@@ -61,25 +37,29 @@ const Customers = () => {
       <main className="customers-list">
         <div className="customers-card">
           <div className="customers-items">
-            {customers.map((customer, index) => (
-              <div key={index} className="customer-item">
+            {debtors.map((customer) => (
+              <div key={customer.id} className="customer-item">
                 <div className="customer-info">
                   <div className="customer-name">
                     <h3>
-                      {customer.name}
-                      {customer.starred && <Star className="star-icon" />}
+                      {customer.full_name}
+                      {customer.debts.length > 0 && (
+                        <Star className="star-icon" />
+                      )}
                     </h3>
-                    <p className="customer-phone">{customer.phone}</p>
+                    <p className="customer-phone">
+                      {customer.phone_numbers.map((p) => p.number).join(", ")}
+                    </p>
                   </div>
                 </div>
                 <div className="customer-balance">
                   <p className="balance-label">Total balance</p>
-                  <p
-                    className={`balance-amount ${
-                      customer.amount < 0 ? "negative" : "positive"
-                    }`}
-                  >
-                    {customer.amount.toLocaleString()} so'm
+                  <p className="balance-amount negative">
+                    {customer.debts.reduce(
+                      (sum, debt) => sum + parseFloat(debt.debt_sum),
+                      0
+                    ).toLocaleString()}{" "}
+                    so'm
                   </p>
                 </div>
               </div>

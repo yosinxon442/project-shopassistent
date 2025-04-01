@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar as CalendarIcon, LogOut, Eye, EyeOff } from "lucide-react";
+import { Calendar as CalendarIcon, LogOut, Eye, EyeOff, Users, Clock } from "lucide-react";
+import { RiUserFill } from "react-icons/ri";
+import { useAuth } from "../hooks/useAuth";
 import "../styles/Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [isBalanceVisible, setIsBalanceVisible] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  if (!user) return null;
 
   return (
     <div className="profile-container">
-      {/* Header */}
       <header className="profile-header">
         <h1 className="profile-title">Profile</h1>
         <div className="profile-actions">
@@ -17,38 +31,37 @@ const Profile = () => {
             <CalendarIcon className="icon" />
             Calendar
           </button>
-          <button onClick={() => navigate("/login")} className="btn-secondary">
+          <button onClick={logout} className="btn-secondary">
             <LogOut className="icon" />
             Logout
           </button>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="profile-main">
         <div className="profile-card">
           <div className="profile-info">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt="Profile"
-              className="profile-avatar"
-            />
-            <div>
-              <h2 className="profile-name">TestUser123</h2>
-              <p className="profile-email">test@example.com</p>
+            <div className="profile-avatar-container">
+              <div className="profile-avatar-border">
+              <RiUserFill className="profile-icon" />
+              </div>
+                 
+            </div>
+            <div className="profile-details">
+              <h2 className="profile-name">{user.username}</h2>
+              <p className="profile-email">{user.email}</p>
             </div>
           </div>
 
-          {/* Statistics */}
           <div className="profile-stats">
             <div className="stat-box blue">
               <h3 className="stat-title">Total Balance</h3>
-              <div className="balance-container">
+              <div className="stat-content">
                 <p className="stat-value">
-                  {isBalanceVisible ? "135,214,200 so'm" : "********"}
+                  {isBalanceVisible ? `${user.balance} so'm` : "********"}
                 </p>
-                <button
-                  onClick={() => setIsBalanceVisible(!isBalanceVisible)}
+                <button 
+                  onClick={() => setIsBalanceVisible(!isBalanceVisible)} 
                   className="toggle-visibility"
                 >
                   {isBalanceVisible ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -56,30 +69,20 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="stat-box green">
-              <h3 className="stat-title">Monthly Statistics</h3>
-              <div className="stat-grid">
-                <div>
-                  <p className="stat-label">Transactions</p>
-                  <p className="stat-number">26</p>
-                </div>
-                <div>
-                  <p className="stat-label">Active Days</p>
-                  <p className="stat-number">151</p>
-                </div>
+            <div className="stat-box red">
+              <h3 className="stat-title">Kechiktirilgan to'lovlar</h3>
+              <div className="stat-content">
+                <Clock className="stat-icon" />
+                <p className="stat-value">{user.delayedPayments} so'm</p>
               </div>
             </div>
-          </div>
 
-          {/* Recent Activity */}
-          <div className="recent-activity">
-            <h3 className="activity-title">Recent Activity</h3>
-            <div className="activity-box">
-              <div className="activity-info">
-                <p className="activity-label">Monthly Payment</p>
-                <p className="activity-amount">300,000 so'm</p>
+            <div className="stat-box green">
+              <h3 className="stat-title">Mijozlar soni</h3>
+              <div className="stat-content">
+                <Users className="stat-icon" />
+                <p className="stat-value">{user.clientsCount} ta</p>
               </div>
-              <span className="status-badge">Pending</span>
             </div>
           </div>
         </div>
